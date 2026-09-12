@@ -4,7 +4,7 @@ const PILLARS = [
   { label: "CONNECT", accent: "var(--blue)", copy: "Mentors, global peers, real-world advice on your career path." },
   { label: "LEARN", accent: "var(--green)", copy: "Workshops and skill-building that keep pace with your field." },
   { label: "LEAD", accent: "var(--orange)", copy: "Volunteer, run initiatives, get recognized for the work." },
-  { label: "THRIVE", accent: "var(--blue)", copy: "Build the career — and community — you actually want." },
+  { label: "THRIVE", accent: "var(--blue)", copy: "Build the career and community you actually want." },
 ];
 
 export function Pillars() {

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "YP Task Force — Links",
+  title: "YP Task Force Links",
   description: "Quick links from the IEEE YP Task Force flyer.",
 };
 
@@ -22,7 +22,7 @@ const LINKS = [
     href: "https://yp.ieee.org",
     accent: "var(--green)",
     title: "IEEE Young Professionals",
-    sub: "yp.ieee.org — the global YP community",
+    sub: "yp.ieee.org · the global YP community",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="12" cy="12" r="9" />
@@ -31,10 +31,24 @@ const LINKS = [
     ),
   },
   {
-    href: "mailto:yp@ieee.tn",
+    href: "/about",
     accent: "var(--orange)",
+    title: "More about YP",
+    sub: "Who we are, and what Connect · Learn · Lead · Thrive means",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <circle cx="9" cy="8" r="3.2" />
+        <path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6" />
+        <path d="M16.2 3.6c1.8.5 3 2.1 3 4.1 0 2-1.4 3.6-3.1 4.1" />
+        <path d="M21.5 20c0-3-1.9-5.2-4.5-5.8" />
+      </svg>
+    ),
+  },
+  {
+    href: "mailto:yp@ieee.tn",
+    accent: "var(--green)",
     title: "Ask the Task Force",
-    sub: "yp@ieee.tn — questions, new leads, feedback",
+    sub: "yp@ieee.tn · questions, new leads, feedback",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <rect x="3" y="5" width="18" height="14" rx="2" />

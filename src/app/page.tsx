@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { DecryptText } from "@/components/DecryptText";
 import { SplitHeadline } from "@/components/SplitHeadline";
 import { CountUp } from "@/components/CountUp";
@@ -14,10 +15,15 @@ export default function Home() {
           <div className="brand-row">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="IEEE Young Professionals" />
-            <span className="tape-stat">
-              <CountUp target={opportunities.length} />
-              &nbsp;pinned · Sept 2026
-            </span>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <Link href="/about" className="nav-link">
+                About YP
+              </Link>
+              <span className="tape-stat">
+                <CountUp target={opportunities.length} />
+                &nbsp;pinned · Sept 2026
+              </span>
+            </div>
           </div>
           <div className="hero">
             <Mark3D />
@@ -37,7 +43,7 @@ export default function Home() {
                 />
               </svg>
               <p>
-                Every scholarship, fellowship and internship the Task Force has scouted —
+                Every scholarship, fellowship and internship the Task Force has scouted,
                 dragged out of a spreadsheet and pinned up where you&apos;ll actually look.
                 Drag the badge, search below, go apply.
               </p>
@@ -56,9 +62,9 @@ export default function Home() {
 
       <footer>
         <div className="wrap">
-          <span className="tape-strip">The YP Board — pinned by the IEEE YP Task Force</span>
+          <span className="tape-strip">The YP Board · pinned by the IEEE YP Task Force</span>
           <p className="fine-print">
-            Deadlines shift year to year — confirm current cycle dates on the linked society
+            Deadlines shift year to year, so confirm current cycle dates on the linked society
             page before applying. IEEE membership is required for virtually every listing
             here. Compiled from the Task Force Support Sheet, Sept 2026. Questions or new
             leads?{" "}

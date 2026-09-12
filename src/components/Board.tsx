@@ -1,81 +1,121 @@
 "use client";
-import { useMemo, useState } from "react";
-import { opportunities } from "@/data/opportunities";
+import { useEffect, useMemo, useState } from "react";
+import { opportunities, CATEGORY_ACCENT, Sheet } from "@/data/opportunities";
 import { OpportunityCard } from "./OpportunityCard";
 import { SearchBar } from "./SearchBar";
+import { FilterSheet, OptionDef } from "./FilterSheet";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { usePersistentState } from "@/hooks/usePersistentState";
 
-type CategoryFilter = "All" | "Scholarships" | "PhD & Fellowships" | "Internships";
-type LevelFilter = "All" | "Undergraduate" | "Graduate" | "PhD" | "Postdoc" | "Early Career";
-
-const CATEGORIES: CategoryFilter[] = ["All", "Scholarships", "PhD & Fellowships", "Internships"];
-const LEVELS: { key: LevelFilter; label: string }[] = [
-  { key: "All", label: "all levels" },
-  { key: "Undergraduate", label: "undergrad" },
-  { key: "Graduate", label: "grad / master's" },
-  { key: "PhD", label: "phd" },
-  { key: "Postdoc", label: "postdoc" },
-  { key: "Early Career", label: "early career" },
+const CATEGORIES: Sheet[] = ["Scholarships", "PhD & Fellowships", "Internships"];
+const LEVEL_DEFS: { key: string; label: string; test: (level: string) => boolean }[] = [
+  { key: "Undergraduate", label: "Undergrad", test: (l) => /undergrad/i.test(l) },
+  {
+    key: "Graduate",
+    label: "Grad / Master's",
+    test: (l) => /graduate|master/i.test(l) && !/postdoc/i.test(l),
+  },
+  { key: "PhD", label: "PhD", test: (l) => /phd/i.test(l) },
+  { key: "Postdoc", label: "Postdoctoral", test: (l) => /postdoc/i.test(l) },
+  {
+    key: "Early Career",
+    label: "Early career",
+    test: (l) => /early career|young professional/i.test(l),
+  },
 ];
-
-function levelMatches(levelStr: string, filter: LevelFilter) {
-  if (filter === "All") return true;
-  if (filter === "Graduate") return /graduate|master/i.test(levelStr) && !/postdoc/i.test(levelStr);
-  if (filter === "PhD") return /phd/i.test(levelStr);
-  if (filter === "Postdoc") return /postdoc/i.test(levelStr);
-  if (filter === "Early Career") return /early career|young professional/i.test(levelStr);
-  if (filter === "Undergraduate") return /undergrad/i.test(levelStr);
-  return true;
-}
 
 export function Board() {
   const motionOK = !useReducedMotion();
   const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<CategoryFilter>("All");
-  const [level, setLevel] = useState<LevelFilter>("All");
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [categories, setCategories] = usePersistentState<string[]>("ypboard:categories", []);
+  const [levels, setLevels] = usePersistentState<string[]>("ypboard:levels", []);
+
+  // First visit: invite people to pick their preferences before they see the board.
+  useEffect(() => {
+    const seen = typeof window !== "undefined" && localStorage.getItem("ypboard:onboarded");
+    if (!seen) setSheetOpen(true);
+  }, []);
+
+  const closeSheet = () => {
+    setSheetOpen(false);
+    try {
+      localStorage.setItem("ypboard:onboarded", "1");
+    } catch {
+      /* storage blocked — fine to skip */
+    }
+  };
+
+  const toggleCategory = (key: string) =>
+    setCategories((prev) => (prev.includes(key) ? prev.filter((c) => c !== key) : [...prev, key]));
+  const toggleLevel = (key: string) =>
+    setLevels((prev) => (prev.includes(key) ? prev.filter((l) => l !== key) : [...prev, key]));
+  const clearAll = () => {
+    setCategories([]);
+    setLevels([]);
+  };
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return opportunities.filter((it) => {
-      if (category !== "All" && it.sheet !== category) return false;
-      if (!levelMatches(it.level, level)) return false;
+      if (categories.length && !categories.includes(it.sheet)) return false;
+      if (levels.length) {
+        const matchesAny = levels.some((lv) => LEVEL_DEFS.find((d) => d.key === lv)?.test(it.level));
+        if (!matchesAny) return false;
+      }
       if (q) {
         const hay = [it.title, it.category, it.level, it.who, it.notes, it.award].join(" ").toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
     });
-  }, [query, category, level]);
+  }, [query, categories, levels]);
+
+  const categoryOptions: OptionDef[] = CATEGORIES.map((cat) => ({
+    key: cat,
+    label: cat,
+    count: opportunities.filter((o) => o.sheet === cat).length,
+    accent: CATEGORY_ACCENT[cat],
+  }));
+  const levelOptions: OptionDef[] = LEVEL_DEFS.map((d) => ({
+    key: d.key,
+    label: d.label,
+    count: opportunities.filter((o) => d.test(o.level)).length,
+  }));
+
+  const activeCount = categories.length + levels.length;
 
   return (
     <>
       <div className="toolbar">
-        <SearchBar value={query} onChange={setQuery} />
-        <div className="tabs" role="tablist" aria-label="Category">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              className="key"
-              data-cat={cat}
-              aria-pressed={category === cat}
-              onClick={() => setCategory(cat)}
-            >
-              {cat === "PhD & Fellowships" ? "PhD & Fellowships" : cat}
-            </button>
-          ))}
+        <div className="search-row">
+          <SearchBar value={query} onChange={setQuery} />
+          <button type="button" className="filter-trigger" onClick={() => setSheetOpen(true)}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M4 6h16M7 12h10M10 18h4" />
+            </svg>
+            Preferences
+            {activeCount > 0 && <span className="filter-badge">{activeCount}</span>}
+          </button>
         </div>
-        <div className="tag-row" aria-label="Level">
-          {LEVELS.map((lvl) => (
-            <button
-              key={lvl.key}
-              className="tag"
-              aria-pressed={level === lvl.key}
-              onClick={() => setLevel(lvl.key)}
-            >
-              {lvl.label}
+
+        {activeCount > 0 && (
+          <div className="active-chip-row">
+            {categories.map((c) => (
+              <button key={c} className="active-chip" onClick={() => toggleCategory(c)}>
+                {c} ✕
+              </button>
+            ))}
+            {levels.map((l) => (
+              <button key={l} className="active-chip" onClick={() => toggleLevel(l)}>
+                {LEVEL_DEFS.find((d) => d.key === l)?.label ?? l} ✕
+              </button>
+            ))}
+            <button className="active-chip clear" onClick={clearAll}>
+              Clear all
             </button>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
 
       <p className="count-line">
@@ -86,7 +126,7 @@ export function Board() {
         {filtered.length === 0 ? (
           <div className="empty-state" style={{ gridColumn: "1 / -1" }}>
             <strong>Nothing pinned here yet</strong>
-            Try a different search term or clear a filter.
+            Try a different search term or loosen your preferences.
           </div>
         ) : (
           filtered.map((item, i) => (
@@ -94,6 +134,19 @@ export function Board() {
           ))
         )}
       </div>
+
+      <FilterSheet
+        open={sheetOpen}
+        onClose={closeSheet}
+        categoryOptions={categoryOptions}
+        levelOptions={levelOptions}
+        selectedCategories={categories}
+        selectedLevels={levels}
+        onToggleCategory={toggleCategory}
+        onToggleLevel={toggleLevel}
+        onClear={clearAll}
+        resultCount={filtered.length}
+      />
     </>
   );
 }
