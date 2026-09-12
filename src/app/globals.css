@@ -27,6 +27,23 @@
   --stamp-open: #AB3226;
   --stamp-ongoing: #2E5AA8;
 
+  /* meta nav: a dark utility strip on the light board, flips to a white one on dark */
+  --meta-bg-1: #1B140C;
+  --meta-bg-2: #000000;
+  --meta-border: rgba(255, 255, 255, .1);
+  --meta-text: rgba(255, 255, 255, .68);
+  --meta-text-strong: #fff;
+  --meta-join-color: #FFC490;
+  --meta-join-bg: rgba(244, 121, 32, .16);
+  --meta-join-border: rgba(244, 121, 32, .4);
+  --meta-join-hover-color: #FFDAB0;
+  --meta-join-hover-bg: rgba(244, 121, 32, .28);
+  --meta-join-hover-border: rgba(244, 121, 32, .65);
+  --meta-donate-color: rgba(255, 255, 255, .75);
+  --meta-donate-border: rgba(255, 255, 255, .22);
+  --meta-donate-hover-bg: rgba(255, 255, 255, .08);
+  --meta-donate-hover-border: rgba(255, 255, 255, .4);
+
   color-scheme: light;
 }
 
@@ -40,6 +57,21 @@
     --chrome-surface: #1C2F26;
     --chrome-surface-soft: rgba(28, 47, 38, .7);
     --chrome-line: rgba(233, 242, 231, .28);
+    --meta-bg-1: #FFFFFF;
+    --meta-bg-2: #F0F0F0;
+    --meta-border: rgba(0, 0, 0, .1);
+    --meta-text: rgba(20, 16, 10, .68);
+    --meta-text-strong: #000;
+    --meta-join-color: #8A4300;
+    --meta-join-bg: rgba(244, 121, 32, .12);
+    --meta-join-border: rgba(244, 121, 32, .5);
+    --meta-join-hover-color: #6E3500;
+    --meta-join-hover-bg: rgba(244, 121, 32, .2);
+    --meta-join-hover-border: rgba(244, 121, 32, .7);
+    --meta-donate-color: rgba(20, 16, 10, .75);
+    --meta-donate-border: rgba(0, 0, 0, .22);
+    --meta-donate-hover-bg: rgba(0, 0, 0, .06);
+    --meta-donate-hover-border: rgba(0, 0, 0, .4);
     color-scheme: dark;
   }
 }
@@ -52,6 +84,21 @@
   --chrome-surface: #1C2F26;
   --chrome-surface-soft: rgba(28, 47, 38, .7);
   --chrome-line: rgba(233, 242, 231, .28);
+  --meta-bg-1: #FFFFFF;
+  --meta-bg-2: #F0F0F0;
+  --meta-border: rgba(0, 0, 0, .1);
+  --meta-text: rgba(20, 16, 10, .68);
+  --meta-text-strong: #000;
+  --meta-join-color: #8A4300;
+  --meta-join-bg: rgba(244, 121, 32, .12);
+  --meta-join-border: rgba(244, 121, 32, .5);
+  --meta-join-hover-color: #6E3500;
+  --meta-join-hover-bg: rgba(244, 121, 32, .2);
+  --meta-join-hover-border: rgba(244, 121, 32, .7);
+  --meta-donate-color: rgba(20, 16, 10, .75);
+  --meta-donate-border: rgba(0, 0, 0, .22);
+  --meta-donate-hover-bg: rgba(0, 0, 0, .06);
+  --meta-donate-hover-border: rgba(0, 0, 0, .4);
   color-scheme: dark;
 }
 
@@ -79,8 +126,9 @@ h1, h2, h3 { font-family: var(--font-display), system-ui, sans-serif; text-wrap:
 /* ---------- Meta nav ---------- */
 .meta-nav {
   position: relative; z-index: 30; margin-inline: -16px; padding-inline: 16px;
-  background: linear-gradient(90deg, #1B140C 0%, #000 50%, #1B140C 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  background: linear-gradient(90deg, var(--meta-bg-1) 0%, var(--meta-bg-2) 50%, var(--meta-bg-1) 100%);
+  border-bottom: 1px solid var(--meta-border);
+  transition: background .2s ease;
 }
 .meta-nav-inner {
   display: flex; flex-direction: column; align-items: center; justify-content: space-between;
@@ -91,11 +139,11 @@ h1, h2, h3 { font-family: var(--font-display), system-ui, sans-serif; text-wrap:
 .meta-link {
   position: relative; display: inline-flex; align-items: center; gap: 5px;
   font-family: var(--font-body), sans-serif; font-size: 12px; font-weight: 500;
-  color: rgba(255, 255, 255, .68); text-decoration: none; white-space: nowrap;
+  color: var(--meta-text); text-decoration: none; white-space: nowrap;
   transition: color .2s ease;
 }
 .meta-link svg { width: 10px; height: 10px; opacity: .7; flex: 0 0 auto; }
-.meta-link:hover { color: #fff; }
+.meta-link:hover { color: var(--meta-text-strong); }
 .meta-link:hover svg { opacity: 1; }
 .meta-link span { position: relative; }
 .meta-link span i {
@@ -110,11 +158,15 @@ h1, h2, h3 { font-family: var(--font-display), system-ui, sans-serif; text-wrap:
   transition: all .2s ease; white-space: nowrap;
 }
 .meta-btn-join {
-  color: #FFC490; background: rgba(244, 121, 32, .16); border: 1px solid rgba(244, 121, 32, .4);
+  color: var(--meta-join-color); background: var(--meta-join-bg); border: 1px solid var(--meta-join-border);
 }
-.meta-btn-join:hover { color: #FFDAB0; background: rgba(244, 121, 32, .28); border-color: rgba(244, 121, 32, .65); }
-.meta-btn-donate { color: rgba(255, 255, 255, .75); border: 1px solid rgba(255, 255, 255, .22); }
-.meta-btn-donate:hover { color: #fff; background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .4); }
+.meta-btn-join:hover {
+  color: var(--meta-join-hover-color); background: var(--meta-join-hover-bg); border-color: var(--meta-join-hover-border);
+}
+.meta-btn-donate { color: var(--meta-donate-color); border: 1px solid var(--meta-donate-border); }
+.meta-btn-donate:hover {
+  color: var(--meta-text-strong); background: var(--meta-donate-hover-bg); border-color: var(--meta-donate-hover-border);
+}
 
 /* ---------- Hero ---------- */
 header { padding-block: 18px 8px; position: relative; }

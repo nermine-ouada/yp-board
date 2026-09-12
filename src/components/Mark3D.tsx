@@ -99,13 +99,25 @@ export function Mark3D() {
         const el = renderer.domElement;
         const downHandler = (e: PointerEvent) => {
           onDown(e.clientX, e.clientY);
-          el.setPointerCapture(e.pointerId);
+          try {
+            el.setPointerCapture(e.pointerId);
+          } catch {
+            /* some mobile browsers reject capture on touch-cancel-prone gestures */
+          }
         };
-        const moveHandler = (e: PointerEvent) => onMove(e.clientX, e.clientY);
+        const moveHandler = (e: PointerEvent) => {
+          e.preventDefault();
+          onMove(e.clientX, e.clientY);
+        };
         el.addEventListener("pointerdown", downHandler);
         el.addEventListener("pointermove", moveHandler);
         el.addEventListener("pointerup", onUp);
         el.addEventListener("pointerleave", onUp);
+        // A touch gesture can end in "cancel" instead of "up" (e.g. the OS steals
+        // it for a scroll/back-swipe) — without this, dragging gets stuck true and
+        // the mark freezes in place forever on mobile.
+        el.addEventListener("pointercancel", onUp);
+        document.addEventListener("visibilitychange", onUp);
 
         function tick() {
           raf = requestAnimationFrame(tick);
