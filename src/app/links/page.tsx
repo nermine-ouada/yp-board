@@ -64,7 +64,12 @@ export default function LinksPage() {
       <header>
         <div className="wrap" style={{ textAlign: "center" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo.png" alt="IEEE Young Professionals" style={{ margin: "0 auto 18px" }} />
+          <img
+            src="/logo.png"
+            alt="IEEE Young Professionals"
+            className="theme-logo"
+            style={{ margin: "0 auto 18px" }}
+          />
           <span className="eyebrow">// scan the flyer, land here</span>
           <h1 style={{ fontSize: "clamp(24px,6vw,34px)" }}>Everything from the flyer</h1>
           <p style={{ margin: "10px auto 0", color: "var(--board-muted)", maxWidth: "44ch" }}>

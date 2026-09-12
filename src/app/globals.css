@@ -141,9 +141,13 @@ h1, h2, h3 { font-family: var(--font-display), system-ui, sans-serif; text-wrap:
 /* ---------- Hero ---------- */
 header { padding-block: 18px 8px; position: relative; }
 .brand-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.brand-row img { height: 24px; width: auto; display: block; opacity: .92; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .brand-row img { filter: brightness(0) invert(1); } }
-:root[data-theme="dark"] .brand-row img { filter: brightness(0) invert(1); }
+.brand-row img, .theme-logo { height: 24px; width: auto; display: block; opacity: .92; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .brand-row img,
+  :root:not([data-theme="light"]) .theme-logo { filter: brightness(0) invert(1); }
+}
+:root[data-theme="dark"] .brand-row img,
+:root[data-theme="dark"] .theme-logo { filter: brightness(0) invert(1); }
 
 .tape-stat {
   font-family: var(--font-mono), monospace;
