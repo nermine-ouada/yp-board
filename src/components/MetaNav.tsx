@@ -1,4 +1,4 @@
-import { GlobeIcon, ExternalLinkIcon, SparklesIcon } from "./icons";
+import { GlobeIcon, ExternalLinkIcon } from "./icons";
 
 const LINKS = [
   { href: "https://www.ieee.org/index.html", label: "IEEE.org", icon: "globe" as const, external: false },
@@ -29,7 +29,6 @@ export function MetaNav() {
             rel="noopener noreferrer"
             className="meta-btn meta-btn-join"
           >
-            <SparklesIcon />
             Join IEEE
           </a>
           <a href="https://www.ieee.org/give" target="_blank" rel="noopener noreferrer" className="meta-btn meta-btn-donate">
