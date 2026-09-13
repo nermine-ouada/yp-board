@@ -31,6 +31,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+      <head>
+        <script
+          // Runs before paint so a saved theme choice applies immediately,
+          // instead of flashing the system theme first.
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem("ypboard:theme");if(t==="light"||t==="dark"){document.documentElement.setAttribute("data-theme",t);}}catch(e){}`,
+          }}
+        />
+      </head>
       <body>
         <MetaNav />
         {children}
