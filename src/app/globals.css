@@ -425,33 +425,48 @@ footer .fine-print { margin-top: 12px; max-width: 64ch; }
 footer a.contact { color: var(--blue); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
 
 /* ---------- About page ---------- */
-.who-we-are-list { display: flex; flex-direction: column; }
-.who-entry {
-  display: flex; gap: 18px; padding-block: 20px;
-  border-top: 1px solid var(--chrome-line);
+.info-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 760px) { .info-grid { grid-template-columns: repeat(3, 1fr); } }
+.info-card {
+  background: var(--paper); color: var(--ink); padding: 18px 17px 16px; border-radius: 4px;
+  box-shadow: 0 8px 16px -8px rgba(0, 0, 0, .3);
 }
-.who-entry:first-child { border-top: none; padding-top: 4px; }
-.who-mark {
-  flex: 0 0 auto; width: 26px; padding-top: 2px;
-  font-family: var(--font-mono), monospace; font-size: 13px; font-weight: 700;
-  color: var(--accent, var(--blue));
+.info-card-tag {
+  display: block; font-family: var(--font-mono), monospace; font-size: 11px; font-weight: 700;
+  letter-spacing: .06em; color: var(--accent, var(--blue)); margin-bottom: 8px;
 }
-.who-entry h3 { font-size: 16px; font-weight: 700; margin: 0 0 6px; color: var(--board-ink); }
-.who-entry p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--board-muted); max-width: 56ch; }
+.info-card h3 { font-size: 16px; font-weight: 700; margin: 0 0 8px; color: var(--ink); }
+.info-card p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
 
-.pillars-panel {
-  background: var(--chrome-surface); border: 1px solid var(--chrome-line); border-radius: 6px;
-  padding: 4px 20px;
+.pillar-detail-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+@media (min-width: 760px) { .pillar-detail-grid { grid-template-columns: repeat(2, 1fr); } }
+.pillar-detail-card {
+  background: var(--paper); color: var(--ink); padding: 20px 20px 18px; border-radius: 4px;
+  box-shadow: 0 8px 16px -8px rgba(0, 0, 0, .3);
 }
-.pillars-row { display: flex; gap: 16px; align-items: flex-start; padding-block: 18px; }
-.pillars-row + .pillars-row { border-top: 1px solid var(--chrome-line); }
-.pillars-tag {
-  flex: 0 0 auto; margin-top: 2px; font-family: var(--font-mono), monospace; font-size: 11px;
-  font-weight: 700; letter-spacing: .05em; color: #fff; background: var(--accent, var(--blue));
-  padding: 4px 9px; border-radius: 3px; white-space: nowrap;
+.pillar-chip {
+  display: inline-block; font-family: var(--font-mono), monospace; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .05em; color: #fff; background: var(--accent, var(--blue));
+  padding: 4px 10px; border-radius: 3px; transform: rotate(-1.5deg); margin-bottom: 12px;
 }
-.pillars-row-tagline { font-weight: 700; font-size: 14.5px; margin: 0 0 5px; color: var(--board-ink); }
-.pillars-row-desc { font-size: 13.5px; line-height: 1.6; margin: 0; color: var(--board-muted); max-width: 60ch; }
+.pillar-tagline { font-weight: 700; font-size: 14.5px; margin: 0 0 12px; color: var(--ink); }
+.pillar-detail-card ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.pillar-detail-card li {
+  font-size: 13.5px; line-height: 1.55; color: var(--muted); padding-left: 18px; position: relative;
+}
+.pillar-detail-card li::before {
+  content: ""; position: absolute; left: 0; top: 6px; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent, var(--blue));
+}
+
+.about-cta {
+  margin-top: 44px; padding: 24px 22px; background: var(--chrome-surface-soft);
+  border: 1px dashed var(--chrome-line); border-radius: 10px;
+  display: flex; flex-direction: column; gap: 16px; align-items: flex-start;
+}
+@media (min-width: 640px) { .about-cta { flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; } }
+.about-cta h2 { font-size: 20px; font-weight: 800; color: var(--board-ink); }
+.about-cta p { margin: 6px 0 0; color: var(--board-muted); font-size: 13.5px; }
 
 .about-inline-link {
   color: var(--blue); text-decoration: underline; text-decoration-color: var(--orange);
