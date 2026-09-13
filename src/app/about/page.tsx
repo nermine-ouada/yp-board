@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DecryptText } from "@/components/DecryptText";
-import { UsersIcon, ArrowIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "About IEEE Young Professionals",
@@ -10,19 +9,19 @@ export const metadata: Metadata = {
 
 const WHO_WE_ARE = [
   {
-    title: "A Community of Innovators",
+    title: "A community of innovators",
     accent: "var(--blue)",
-    body: "A community of forward-thinking individuals, bound by a shared passion for technology and a commitment to pushing the boundaries of innovation. Our members, volunteers, and initiatives span the globe, creating a rich tapestry of perspectives and experiences.",
+    body: "Forward-thinking individuals bound by a shared passion for technology. Members, volunteers and initiatives span the globe, creating a rich mix of perspectives and experience.",
   },
   {
-    title: "Guidance for Early-Career Professionals",
+    title: "Guidance for early-career professionals",
     accent: "var(--orange)",
-    body: "Get the insight you need to navigate the exciting and challenging early stages of your career. IEEE Young Professionals is your compass: evaluating your career goals, polishing your professional image, and setting the foundation for a lifelong and diverse network.",
+    body: "A compass for the exciting, sometimes challenging early stretch of a career: evaluating your goals, polishing your professional image, and setting the foundation for a lifelong network.",
   },
   {
-    title: "Accessible to All IEEE Members",
+    title: "Accessible to all IEEE members",
     accent: "var(--green)",
-    body: "Take your membership even further with opportunities you'll only find with IEEE Young Professionals. Our resources and events are available to all members, ensuring you have the support you need to thrive in your career.",
+    body: "Resources and events open to every IEEE member, so you have the support you need to thrive, whatever stage of that first stretch you're in.",
   },
 ];
 
@@ -30,42 +29,26 @@ const PILLARS = [
   {
     key: "CONNECT",
     accent: "var(--blue)",
-    tagline: "Connect with peers, experts, and mentorship programs",
-    points: [
-      "Explore mentorship opportunities for guidance and development",
-      "Expand your professional network on a global scale",
-      "Seek advice from people with real-world experience across a variety of career paths",
-    ],
+    tagline: "With peers, experts and mentorship programs",
+    body: "Explore mentorship for guidance and development, and build a professional network that spans the globe, drawing on people with real experience across a range of career paths.",
   },
   {
     key: "LEARN",
     accent: "var(--green)",
-    tagline: "Learn skills and knowledge to expand your horizons",
-    points: [
-      "Participate in skill-building challenges and workshops",
-      "Stay current through curated educational resources",
-      "Develop leadership, project management, event planning, presentation, communication and problem-solving skills through hands-on experience",
-    ],
+    tagline: "Skills and knowledge to expand your horizons",
+    body: "Build practical skills through workshops and challenges, and grow leadership, communication and project-management ability through hands-on experience, backed by curated resources.",
   },
   {
     key: "LEAD",
     accent: "var(--orange)",
-    tagline: "Lead with impact and volunteer with purpose",
-    points: [
-      "Engage in impactful volunteer experiences and shape the next generation",
-      "Showcase your abilities in IEEE contests, challenges, and volunteering initiatives",
-      "Gain recognition and visibility, contributing to your personal and professional advancement",
-    ],
+    tagline: "With impact, and volunteer with purpose",
+    body: "Volunteer on initiatives that shape the next generation, and gain recognition through IEEE contests and challenges that add visibility to your work.",
   },
   {
     key: "THRIVE",
     accent: "var(--blue)",
-    tagline: "Thrive in your career and community",
-    points: [
-      "Build a reputation as an active, engaged IEEE professional",
-      "Discover new career and entrepreneurial possibilities",
-      "Secure not just a job, but the career that aligns with your aspirations",
-    ],
+    tagline: "In your career and your community",
+    body: "Build a reputation as an engaged IEEE professional, and find the entrepreneurial or career path that actually fits what you're after.",
   },
 ];
 
@@ -106,16 +89,20 @@ export default function AboutPage() {
 
       <main>
         <div className="wrap">
-          <section style={{ marginTop: 30 }}>
-            <p className="sheet-section-label" style={{ margin: "0 0 12px" }}>
+          <section style={{ marginTop: 32 }}>
+            <p className="sheet-section-label" style={{ margin: "0 0 4px" }}>
               Who are the IEEE Young Professionals?
             </p>
-            <div className="info-grid">
-              {WHO_WE_ARE.map((w) => (
-                <div className="info-card" key={w.title} style={{ ["--accent" as string]: w.accent }}>
-                  <UsersIcon />
-                  <h3>{w.title}</h3>
-                  <p>{w.body}</p>
+            <div className="who-we-are-list">
+              {WHO_WE_ARE.map((w, i) => (
+                <div className="who-entry" key={w.title}>
+                  <span className="who-mark" style={{ ["--accent" as string]: w.accent }}>
+                    0{i + 1}
+                  </span>
+                  <div>
+                    <h3>{w.title}</h3>
+                    <p>{w.body}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -123,48 +110,44 @@ export default function AboutPage() {
 
           <section style={{ marginTop: 40 }}>
             <p className="sheet-section-label" style={{ margin: "0 0 12px" }}>
-              Where your passion meets a global community
+              The four pillars
             </p>
-            <p style={{ color: "var(--board-muted)", maxWidth: "68ch", margin: "0 0 20px" }}>
-              Your future is ignited with opportunities, connections, and a bridge to success
-              crafted just for you, built around four things.
+            <p style={{ color: "var(--board-muted)", maxWidth: "68ch", margin: "0 0 18px" }}>
+              Your future is ignited with opportunities, connections, and a bridge to success,
+              built around four things.
             </p>
-            <div className="pillar-detail-grid">
+            <div className="pillars-panel">
               {PILLARS.map((p) => (
-                <div className="pillar-detail-card" key={p.key} style={{ ["--accent" as string]: p.accent }}>
-                  <span className="pillar-label" style={{ fontSize: 20 }}>
+                <div className="pillars-row" key={p.key}>
+                  <span className="pillars-tag" style={{ ["--accent" as string]: p.accent }}>
                     {p.key}
                   </span>
-                  <p className="pillar-tagline">{p.tagline}</p>
-                  <ul>
-                    {p.points.map((pt) => (
-                      <li key={pt}>{pt}</li>
-                    ))}
-                  </ul>
+                  <div>
+                    <p className="pillars-row-tagline">{p.tagline}</p>
+                    <p className="pillars-row-desc">{p.body}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </section>
 
-          <section className="about-cta">
-            <div>
-              <h2>Ready to get involved?</h2>
-              <p>Browse what the Task Force has pinned, or head to the source.</p>
-            </div>
-            <div className="about-cta-links">
-              <Link className="apply-btn" href="/" style={{ ["--accent" as string]: "var(--blue)" }}>
-                Open the board <ArrowIcon />
+          <section style={{ marginTop: 44, marginBottom: 8 }}>
+            <p style={{ fontSize: 15, lineHeight: 1.6, color: "var(--board-ink)", maxWidth: "62ch" }}>
+              Ready to get involved?{" "}
+              <Link href="/" className="about-inline-link">
+                Browse what the Task Force has pinned
               </Link>
+              , or head straight to{" "}
               <a
-                className="apply-btn"
                 href="https://yp.ieee.org"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{ ["--accent" as string]: "var(--green)" }}
+                className="about-inline-link"
               >
-                yp.ieee.org <ArrowIcon />
+                yp.ieee.org
               </a>
-            </div>
+              .
+            </p>
           </section>
         </div>
       </main>
