@@ -35,13 +35,6 @@ export default function Home() {
                 duration={550}
               />
               <SplitHeadline plain="Pin your next" shiny="opportunity" />
-              <svg className="squiggle" viewBox="0 0 200 20" fill="none">
-                <path
-                  d="M2 14 Q 20 2 40 14 T 80 14 T 120 14 T 160 14 T 198 14"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                />
-              </svg>
               <p>
                 Every scholarship, fellowship and internship the Task Force has scouted,
                 dragged out of a spreadsheet and pinned up where you&apos;ll actually look.

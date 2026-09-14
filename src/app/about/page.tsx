@@ -83,18 +83,24 @@ export default function AboutPage() {
           </div>
           <div className="hero" style={{ display: "block", textAlign: "left" }}>
             <DecryptText as="span" className="eyebrow" text="// who we are" duration={500} />
-            <h1 style={{ fontSize: "clamp(28px,6vw,44px)" }}>
+            <h1 style={{ fontSize: "clamp(28px,6vw,44px)", marginBottom: 14 }}>
               Connecting passions.
               <br />
-              Igniting futures.
+              Igniting{" "}
+              <span style={{ color: "var(--orange)", position: "relative", display: "inline-block" }}>
+                futures
+                <svg
+                  className="word-underline"
+                  viewBox="0 0 100 14"
+                  preserveAspectRatio="none"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path d="M0 8 Q 12 1 25 8 T 50 8 T 75 8 T 100 8" strokeWidth="5" strokeLinecap="round" />
+                </svg>
+              </span>
+              .
             </h1>
-            <svg className="squiggle" viewBox="0 0 200 20" fill="none" style={{ margin: "6px 0 0" }}>
-              <path
-                d="M2 14 Q 20 2 40 14 T 80 14 T 120 14 T 160 14 T 198 14"
-                strokeWidth="4"
-                strokeLinecap="round"
-              />
-            </svg>
             <p style={{ margin: "14px 0 0", maxWidth: "62ch" }}>
               Welcome to IEEE Young Professionals: a vibrant global community tailored for
               anyone who received their first professional degree within the past 15 years.

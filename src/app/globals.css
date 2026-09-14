@@ -167,9 +167,9 @@ header { padding-block: 18px 8px; position: relative; }
   display: inline-block; font-family: var(--font-mono), monospace; font-size: 11.5px; font-weight: 700;
   letter-spacing: .09em; text-transform: uppercase; color: var(--board-muted); margin-bottom: 8px; min-height: 1.3em;
 }
-.hero h1 { font-size: clamp(28px, 6vw, 42px); font-weight: 800; line-height: 1.05; color: var(--board-ink); }
+.hero h1 { font-size: clamp(28px, 6vw, 42px); font-weight: 800; line-height: 1.05; color: var(--board-ink); margin-bottom: 14px; }
 .hero h1 em {
-  font-style: normal;
+  font-style: normal; position: relative;
   background-image: linear-gradient(90deg, var(--orange), var(--blue), var(--green), var(--orange));
   background-size: 300% 100%;
   -webkit-background-clip: text; background-clip: text; color: transparent;
@@ -190,9 +190,12 @@ header { padding-block: 18px 8px; position: relative; }
   .char { opacity: 1; transform: none; filter: none; animation: none; }
 }
 
-.squiggle { display: block; width: 150px; height: 14px; margin: 6px auto 0; }
-@media (min-width: 760px) { .squiggle { margin: 6px 0 0; } }
-.squiggle path { stroke: var(--blue); }
+/* Underlines the specific accent word it sits inside, not the headline as a
+   whole — stretches to that word's exact rendered width via preserveAspectRatio. */
+.word-underline {
+  position: absolute; left: 0; bottom: -7px; width: 100%; height: 11px; pointer-events: none;
+}
+.word-underline path { stroke: var(--blue); }
 .hero p { margin: 12px auto 0; color: var(--board-muted); font-size: 15px; max-width: 52ch; line-height: 1.6; }
 @media (min-width: 760px) { .hero p { margin: 12px 0 0; } }
 
