@@ -5,6 +5,13 @@ import { MARK_MESH_B64 } from "@/data/markData";
 
 const VCOUNT = 41508;
 
+// The mesh's vertex colors are stored as plain sRGB (the brand hex values,
+// 0-1 normalized). three.js's lighting math expects linear input, so left
+// unconverted they read as washed-out/pale once lit — convert once on load.
+function srgbToLinear(c: number): number {
+  return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+}
+
 function decodeMeshBuffer(): ArrayBuffer {
   const binStr = atob(MARK_MESH_B64);
   const buf = new ArrayBuffer(binStr.length);
@@ -68,7 +75,8 @@ export function Mark3D() {
       const floatsPer = VCOUNT * 3;
       const positions = new Float32Array(buf, 0, floatsPer);
       const normals = new Float32Array(buf, floatsPer * 4, floatsPer);
-      const colors = new Float32Array(buf, floatsPer * 4 * 2, floatsPer);
+      const colors = new Float32Array(buf, floatsPer * 4 * 2, floatsPer).slice();
+      for (let i = 0; i < colors.length; i++) colors[i] = srgbToLinear(colors[i]);
 
       const geo = new THREE.BufferGeometry();
       geo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
