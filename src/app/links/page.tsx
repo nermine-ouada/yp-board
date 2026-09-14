@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "YP Task Force Links",
@@ -63,6 +64,11 @@ export default function LinksPage() {
     <>
       <header>
         <div className="wrap" style={{ textAlign: "center" }}>
+          <div style={{ marginBottom: 18 }}>
+            <Link href="/" className="tape-stat" style={{ textDecoration: "none", display: "inline-block" }}>
+              ← back to the board
+            </Link>
+          </div>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"

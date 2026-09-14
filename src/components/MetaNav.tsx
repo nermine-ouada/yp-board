@@ -1,5 +1,4 @@
 import { GlobeIcon, ExternalLinkIcon } from "./icons";
-import { ThemeToggle } from "./ThemeToggle";
 
 const LINKS = [
   { href: "https://www.ieee.org/index.html", label: "IEEE.org", icon: "globe" as const, external: false },
@@ -35,7 +34,6 @@ export function MetaNav() {
           <a href="https://www.ieee.org/give" target="_blank" rel="noopener noreferrer" className="meta-btn meta-btn-donate">
             Donate
           </a>
-          <ThemeToggle />
         </div>
       </div>
     </div>
