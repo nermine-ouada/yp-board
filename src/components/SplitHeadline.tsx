@@ -45,9 +45,7 @@ export function SplitHeadline({ plain, shiny }: { plain: string; shiny: string }
         }
       >
         {shiny}
-        <svg className="word-underline" viewBox="0 0 100 14" preserveAspectRatio="none" fill="none" aria-hidden="true">
-          <path d="M0 8 Q 12 1 25 8 T 50 8 T 75 8 T 100 8" strokeWidth="5" strokeLinecap="round" />
-        </svg>
+        <span className="word-underline" aria-hidden="true" />
       </em>
     </h1>
   );
