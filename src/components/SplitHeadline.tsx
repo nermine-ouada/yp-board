@@ -45,7 +45,6 @@ export function SplitHeadline({ plain, shiny }: { plain: string; shiny: string }
         }
       >
         {shiny}
-        <span className="word-underline" aria-hidden="true" />
       </em>
     </h1>
   );

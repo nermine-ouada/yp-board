@@ -86,12 +86,7 @@ export default function AboutPage() {
             <h1 style={{ fontSize: "clamp(28px,6vw,44px)", marginBottom: 14 }}>
               Connecting passions.
               <br />
-              Igniting{" "}
-              <span style={{ color: "var(--orange)", position: "relative", display: "inline-block" }}>
-                futures
-                <span className="word-underline" aria-hidden="true" />
-              </span>
-              .
+              Igniting <span style={{ color: "var(--orange)" }}>futures</span>.
             </h1>
             <p style={{ margin: "14px 0 0", maxWidth: "62ch" }}>
               Welcome to IEEE Young Professionals: a vibrant global community tailored for
