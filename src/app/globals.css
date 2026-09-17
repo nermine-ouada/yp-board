@@ -194,9 +194,9 @@ header { padding-block: 18px 8px; position: relative; }
    whole — a repeating tile so the wave's own size stays constant and it just
    repeats to fit, instead of stretching (and distorting) to the word's width. */
 .word-underline {
-  position: absolute; left: 0; bottom: -9px; width: 100%; height: 14px; pointer-events: none;
-  background-repeat: repeat-x; background-position: left center; background-size: 52px 14px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='16' viewBox='0 0 52 16'%3E%3Cpath d='M0 9 Q13 1 26 9 T52 9' fill='none' stroke='%2300629B' stroke-width='4.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  position: absolute; left: 0; bottom: -9px; width: 100%; height: 13px; pointer-events: none;
+  background-repeat: repeat-x; background-position: left center; background-size: 34px 13px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='15' viewBox='0 0 34 15'%3E%3Cpath d='M0 8 Q8.5 1 17 8 T34 8' fill='none' stroke='%2300629B' stroke-width='3.8' stroke-linecap='round'/%3E%3C/svg%3E");
 }
 .hero p { margin: 12px auto 0; color: var(--board-muted); font-size: 15px; max-width: 52ch; line-height: 1.6; }
 @media (min-width: 760px) { .hero p { margin: 12px 0 0; } }
