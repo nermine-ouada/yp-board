@@ -512,14 +512,17 @@ footer a.contact { color: var(--blue); font-weight: 700; text-decoration: underl
 .confirm-backdrop {
   position: fixed; inset: 0; background: rgba(20, 16, 8, .45); z-index: 60;
   display: flex; align-items: center; justify-content: center; padding: 16px;
-  animation: backdropIn .15s ease both;
 }
 .confirm-card {
   background: var(--paper); color: var(--ink); border-radius: 8px; padding: 20px 22px;
   max-width: 360px; width: 100%; box-shadow: 0 20px 40px -14px rgba(0, 0, 0, .45);
+  white-space: normal;
 }
 .confirm-title { font-family: var(--font-display), sans-serif; font-weight: 700; font-size: 16.5px; margin: 0 0 6px; }
-.confirm-message { font-size: 13.5px; color: var(--muted); margin: 0 0 18px; line-height: 1.5; }
+.confirm-message {
+  font-size: 13.5px; color: var(--muted); margin: 0 0 18px; line-height: 1.5;
+  white-space: normal; overflow-wrap: break-word;
+}
 .confirm-actions { display: flex; justify-content: flex-end; gap: 8px; }
 .confirm-actions .admin-link-btn { padding: 6px 13px; font-size: 12px; }
 

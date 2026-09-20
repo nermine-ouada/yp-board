@@ -6,7 +6,7 @@
 // which runs on the Edge runtime.
 
 const COOKIE_NAME = "admin_session";
-const SESSION_DAYS = 7;
+const SESSION_MINUTES = 15;
 
 function getSecret(): string {
   const secret = process.env.SESSION_SECRET;
@@ -29,7 +29,7 @@ async function hmac(message: string): Promise<string> {
 }
 
 export async function createSessionToken(): Promise<{ value: string; maxAge: number }> {
-  const maxAge = SESSION_DAYS * 24 * 60 * 60;
+  const maxAge = SESSION_MINUTES * 60;
   const expires = Math.floor(Date.now() / 1000) + maxAge;
   const signature = await hmac(String(expires));
   return { value: `${expires}.${signature}`, maxAge };
