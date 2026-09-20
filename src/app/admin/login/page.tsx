@@ -4,7 +4,7 @@ import { SubmitButton } from "@/components/admin/SubmitButton";
 export default async function AdminLoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string; from?: string; expired?: string }>;
+  searchParams: Promise<{ error?: string; from?: string }>;
 }) {
   const params = await searchParams;
 
@@ -32,9 +32,6 @@ export default async function AdminLoginPage({
             className="admin-input"
           />
           {params.error && <p className="admin-error">Wrong password. Try again.</p>}
-          {params.expired && !params.error && (
-            <p className="admin-error">Your session expired. Log in again to keep going.</p>
-          )}
           <SubmitButton pendingLabel="Logging in…" style={{ marginTop: 16, width: "100%", justifyContent: "center" }}>
             Log in
           </SubmitButton>
