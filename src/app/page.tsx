@@ -5,16 +5,23 @@ import { CountUp } from "@/components/CountUp";
 import { Mark3D } from "@/components/Mark3D";
 import { Pillars } from "@/components/Pillars";
 import { Board } from "@/components/Board";
-import { opportunities } from "@/data/opportunities";
+import { BrandLogos } from "@/components/BrandLogos";
+import { getOpportunities } from "@/lib/opportunities";
 
-export default function Home() {
+// Admins can add/edit opportunities anytime via /admin, so this page can't be
+// fully static — revalidate on a short interval and admin actions also
+// force an immediate refresh via revalidatePath.
+export const revalidate = 60;
+
+export default async function Home() {
+  const opportunities = await getOpportunities();
+
   return (
     <>
       <header>
         <div className="wrap">
           <div className="brand-row">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="IEEE Young Professionals" />
+            <BrandLogos />
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <Link href="/about" className="nav-link">
                 About YP
@@ -31,7 +38,7 @@ export default function Home() {
               <DecryptText
                 as="span"
                 className="eyebrow"
-                text="// YP Task Force pinboard"
+                text="// YP Tunisia AG Task Force pinboard"
                 duration={550}
               />
               <SplitHeadline plain="Pin your next" shiny="opportunity" />
@@ -49,13 +56,15 @@ export default function Home() {
 
       <main>
         <div className="wrap">
-          <Board />
+          <Board opportunities={opportunities} />
         </div>
       </main>
 
       <footer>
         <div className="wrap">
-          <span className="tape-strip">The YP Board · pinned by the IEEE YP Task Force</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="footer-logo" src="/yp-tunisia-logo.png" alt="IEEE Young Professionals Tunisia Section" />
+          <span className="tape-strip">The YP Pinboard · pinned by the IEEE YP Tunisia AG Task Force</span>
           <p className="fine-print">
             Deadlines shift year to year, so confirm current cycle dates on the linked society
             page before applying. IEEE membership is required for virtually every listing

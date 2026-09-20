@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { DecryptText } from "@/components/DecryptText";
 import { ArrowIcon } from "@/components/icons";
+import { BrandLogos } from "@/components/BrandLogos";
 
 export const metadata: Metadata = {
   title: "About IEEE Young Professionals",
@@ -75,8 +76,7 @@ export default function AboutPage() {
       <header>
         <div className="wrap">
           <div className="brand-row">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="IEEE Young Professionals" />
+            <BrandLogos />
             <Link href="/" className="tape-stat" style={{ textDecoration: "none" }}>
               ← back to the board
             </Link>
@@ -157,6 +157,8 @@ export default function AboutPage() {
 
       <footer>
         <div className="wrap">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="footer-logo" src="/yp-tunisia-logo.png" alt="IEEE Young Professionals Tunisia Section" />
           <span className="tape-strip">IEEE Young Professionals · yp.ieee.org</span>
           <p className="fine-print">
             Copy sourced from the official IEEE YP brochure. Questions?{" "}

@@ -1,13 +1,16 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import { opportunities, CATEGORY_ACCENT, Sheet } from "@/data/opportunities";
+import { Opportunity, CATEGORY_ACCENT, Sheet } from "@/data/opportunities";
 import { OpportunityCard } from "./OpportunityCard";
 import { SearchBar } from "./SearchBar";
 import { FilterSheet, OptionDef } from "./FilterSheet";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { usePersistentState } from "@/hooks/usePersistentState";
 
-const CATEGORIES: Sheet[] = ["Scholarships", "PhD & Fellowships", "Internships"];
+// The three original categories keep their brand colors; anything an admin
+// adds beyond those (a brand-new "sheet") still shows up as its own filter
+// tab automatically, just without a hand-picked accent color.
+const KNOWN_ORDER: Sheet[] = ["Scholarships", "PhD & Fellowships", "Internships"];
 const LEVEL_DEFS: { key: string; label: string; test: (level: string) => boolean }[] = [
   { key: "Undergraduate", label: "Undergrad", test: (l) => /undergrad/i.test(l) },
   {
@@ -24,7 +27,7 @@ const LEVEL_DEFS: { key: string; label: string; test: (level: string) => boolean
   },
 ];
 
-export function Board() {
+export function Board({ opportunities }: { opportunities: Opportunity[] }) {
   const motionOK = !useReducedMotion();
   const [query, setQuery] = useState("");
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -71,11 +74,18 @@ export function Board() {
     });
   }, [query, categories, levels]);
 
-  const categoryOptions: OptionDef[] = CATEGORIES.map((cat) => ({
+  const categories_ = useMemo(() => {
+    const present = new Set(opportunities.map((o) => o.sheet));
+    const known = KNOWN_ORDER.filter((c) => present.has(c));
+    const extra = [...present].filter((c) => !KNOWN_ORDER.includes(c as Sheet)).sort();
+    return [...known, ...extra];
+  }, [opportunities]);
+
+  const categoryOptions: OptionDef[] = categories_.map((cat) => ({
     key: cat,
     label: cat,
     count: opportunities.filter((o) => o.sheet === cat).length,
-    accent: CATEGORY_ACCENT[cat],
+    accent: CATEGORY_ACCENT[cat as Sheet] ?? "var(--blue)",
   }));
   const levelOptions: OptionDef[] = LEVEL_DEFS.map((d) => ({
     key: d.key,
@@ -130,7 +140,7 @@ export function Board() {
           </div>
         ) : (
           filtered.map((item, i) => (
-            <OpportunityCard key={`${item.sheet}-${item.num}`} item={item} index={i} motionOK={motionOK} />
+            <OpportunityCard key={item.id} item={item} index={i} motionOK={motionOK} />
           ))
         )}
       </div>

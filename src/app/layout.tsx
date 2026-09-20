@@ -23,9 +23,9 @@ const mono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The YP Board",
+  title: "The YP Pinboard",
   description:
-    "A pinboard of IEEE YP scholarships, fellowships and internships, curated by the YP Task Force.",
+    "A pinboard of IEEE YP scholarships, fellowships and internships, curated by the YP Tunisia AG Task Force.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

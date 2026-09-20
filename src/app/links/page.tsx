@@ -1,21 +1,34 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BrandLogos } from "@/components/BrandLogos";
 
 export const metadata: Metadata = {
-  title: "YP Task Force Links",
-  description: "Quick links from the IEEE YP Task Force flyer.",
+  title: "YP Tunisia AG Task Force Links",
+  description: "Quick links from the IEEE YP Tunisia AG Task Force flyer.",
 };
 
 const LINKS = [
   {
     href: "/",
     accent: "var(--blue)",
-    title: "The YP Board",
+    title: "The YP Pinboard",
     sub: "52 scholarships, fellowships & internships",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <rect x="4" y="4" width="16" height="16" rx="2" />
         <path d="M9 4v16M4 9h5" />
+      </svg>
+    ),
+  },
+  {
+    href: "https://yp.ieee.tn/",
+    accent: "var(--blue)",
+    title: "IEEE YP Tunisia AG",
+    sub: "yp.ieee.tn · the local Tunisia Affinity Group",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" />
+        <circle cx="12" cy="9" r="2.5" />
       </svg>
     ),
   },
@@ -65,8 +78,7 @@ export default function LinksPage() {
       <header>
         <div className="wrap">
           <div className="brand-row">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo.png" alt="IEEE Young Professionals" className="theme-logo" />
+            <BrandLogos />
             <Link href="/" className="tape-stat" style={{ textDecoration: "none" }}>
               ← back to the board
             </Link>
@@ -106,8 +118,15 @@ export default function LinksPage() {
 
       <footer>
         <div className="wrap" style={{ textAlign: "center" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className="footer-logo"
+            src="/yp-tunisia-logo.png"
+            alt="IEEE Young Professionals Tunisia Section"
+            style={{ margin: "0 auto 14px" }}
+          />
           <p className="fine-print" style={{ margin: "0 auto" }}>
-            Pinned by the IEEE YP Task Force · Sept 2026
+            Pinned by the IEEE YP Tunisia AG Task Force · Sept 2026
           </p>
         </div>
       </footer>
