@@ -60,3 +60,13 @@ export async function assertAdmin() {
     throw new Error("Not authorized");
   }
 }
+
+/** Returns the session's expiry time in ms epoch, or null if not logged in. */
+export async function getSessionExpiry(): Promise<number | null> {
+  const { cookies } = await import("next/headers");
+  const cookieStore = await cookies();
+  const token = cookieStore.get(ADMIN_SESSION_COOKIE)?.value;
+  if (!(await isValidSessionToken(token))) return null;
+  const [expiresStr] = (token as string).split(".");
+  return Number(expiresStr) * 1000;
+}
